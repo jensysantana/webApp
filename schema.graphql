@@ -1,0 +1,90 @@
+enum AllowedColor {
+  BLUE
+  GREEN
+  RED
+}
+
+type Emailx {
+  email: String
+  fname: String
+}
+
+type ErrorResponse {
+  data: [UserErrors]
+  errorCode: Int
+  errors: [Errors]
+  message: String
+  name: String
+  success: Boolean
+}
+
+"""types Start--------------------------------"""
+type Errors {
+  message: String!
+  path: String!
+}
+
+"""Mutations Start"""
+type Mutation {
+  createTask(input: TaskInput): Task
+  createUser(input: UserInput): Response
+  deleteUser(_id: String): User
+  updateUser(_id: String!, input: UserInput): Response
+}
+
+"""Queries Start"""
+type Query {
+  getUsers: [User]
+  greet(name: String!): String
+  greet2: Int
+  hello: String
+  tasks: [Task]
+}
+
+type Response {
+  response: ErrorResponse
+}
+
+type Task {
+  _id: ID
+  description: String!
+  number: Int
+  title: String!
+}
+
+"""Inputs--------------------------------------------------"""
+input TaskInput {
+  description: String!
+  number: Int
+  title: String!
+}
+
+type User {
+  _id: ID
+  cpassword: String!
+  createdAt: String
+  email: String!
+  fname: String!
+  lname: String!
+  password: String!
+}
+
+type UserErrors {
+  cpassword: String
+  email: String
+  fname: String
+  lname: String
+  password: String
+}
+
+input UserInput {
+  cpassword: String!
+  email: String!
+  fname: String!
+  lname: String!
+  password: String!
+}
+
+input userInputID {
+  _id: String!
+}
