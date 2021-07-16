@@ -1,0 +1,36 @@
+import cookie from 'cookie';
+import jwt from 'jsonwebtoken';
+import * as admin from './routes/api/admin';
+export async function handle({ request, resolve }) {
+    const cookies = cookie.parse(request.headers.cookie || '');
+    var token = cookies['jwt'];
+    if (token) {
+        var account = jwt.verify(token, admin.GetJWTSecret());
+        if (account) {
+            // authed jwt
+            request.locals.user=account;
+        }
+        else {
+            // unauthed jwt
+
+            request.locals.user=null;
+        }
+    }
+    else {
+        // unauthed jwt
+
+        request.locals.user=null;
+    }
+    
+    const response = await resolve(request);
+    return {
+        ...response
+    }
+
+}
+
+export function getSession({ locals }) {
+    return {
+        user:locals.user
+    };
+}

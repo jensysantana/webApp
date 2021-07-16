@@ -1,15 +1,80 @@
-<script context="module">
-	import { query, graphql, AllItems } from '$houdini';
+<!-- <script>
+	// import {
+	// 	fragment,
+	// 	mutation,
+	// 	graphql,
+	// 	subscription
+	// 	// ItemEntry_item,
+	// } from '$houdini';
+
+	// the reference we're passed from our parents
+	// export let item: ItemEntry_item;
+
+	// get the information we need about the item
+	// const data = fragment('.......');
+
+	// subscription hello {
+	// 	hello
+	// }
+	// since we're just using subscriptions to stay up to date, we don't care about the return value
+	// subscription(
+	// 	graphql`
+	// 		subscription {
+	// 			newUser {
+	// 				fname
+	// 				_id
+	// 				lname
+	// 				password
+	// 			}
+	// 		}
+	// 	`
+	// );
+</script> -->
+<script>
+	import { query, graphql, subscription } from '$houdini';
 
 	// load the items
-	const { data } = query(graphql`
-		query hello {
-			
-		}
-	`);
+	// const { data } = query(graphql`
+	// 	query info {
+	// 		info
+	// 	}
+	// `);
 
-	// ite
+	// data.subscribe((dak) => {
+	// 	console.log('---------dak---------');
+	// 	console.log(dak);
+	// 	console.log('---------dak---------');
+	// });
+
+	const subRest = subscription(
+		graphql`
+			subscription newLink {
+				newLink {
+					id
+					url
+					description
+				}
+			}
+		`
+	);
+
+	console.log('subRest: ', subRest);
+	subRest.data.subscribe(function (my) {
+		console.log('my: ', my);
+	});
 </script>
+
+<!-- graphql`
+	subscription ItemUpdate($id: ID!) {
+		itemUpdate(id: $id) {
+			item {
+				id
+				completed
+				text
+			}
+		}
+	}
+`, -->
 
 <!-- <script context="module">
 	export async function getCsrf() {

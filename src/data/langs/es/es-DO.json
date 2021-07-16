@@ -1,4 +1,15 @@
     {
+        "globalLang": {
+            "gEmail": "Email",
+            "gPassword": "Contraseña",
+            "gCPassword": "Confirmar contraseña",
+            "gPhone": "Teléfono",
+            "gPhoneCode": "Código",
+            "gName": "Nombre",
+            "gLname": "Apellido",
+            "gNewPassword": "Nueva contraseña"
+        },
+        "inputs": {},
         "exp.tokenRequired": "Invalid token expirations.",
         "exp.tokenDataMatch": "Invalid token expiration data type.",
         "aud.tokenAudRequired": "Invalid token audience.",
@@ -19,14 +30,6 @@
         "sorryMessages": {
             "sorryAccountValidate": "Lo siento, no podemos validar su cuenta o su cuenta no existe."
         },
-        "gName": "Nombre",
-        "gLname": "Apellido",
-        "gEmail": "Email",
-        "gPassword": "Contraseña",
-        "gNewPassword": "Nueva contraseña",
-        "gCPassword": "Confirmar contraseña",
-        "gPhone": "Teléfono",
-        "gPhoneCode": "Código",
         "authFormsPageText": {
             "regTitle1of2": "Mi",
             "regTitle2of2": "Camiones",

@@ -1,4 +1,15 @@
 {
+    "globalLang": {
+        "gEmail": "Email",
+        "gPassword": "Password",
+        "gCPassword": "Confirm password",
+        "gPhone": "Phone",
+        "gPhoneCode": "Code",
+        "gName": "Name",
+        "gLname": "Last Name",
+        "gNewPassword": "New password"
+    },
+    "inputs": {},
     "exp.tokenRequired": "Invalid token expirations.",
     "exp.tokenDataMatch": "Invalid token expiration data type.",
     "aud.tokenAudRequired": "Invalid token audience.",
@@ -19,14 +30,6 @@
     "sorryMessages": {
         "sorryAccountValidate": "Sorry, we cannot validate your account or account does not exists."
     },
-    "gName": "Name",
-    "gLname": "Last Name",
-    "gEmail": "Email",
-    "gPassword": "Password",
-    "gNewPassword": "New password",
-    "gCPassword": "Confirm password",
-    "gPhone": "Phone",
-    "gPhoneCode": "Code",
     "authFormsPageText": {
         "regTitle1of2": "My",
         "regTitle2of2": "Trucks",

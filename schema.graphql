@@ -1,90 +1,33 @@
-enum AllowedColor {
-  BLUE
-  GREEN
-  RED
+type AuthPayload {
+  token: String
+  user: User
 }
 
-type Emailx {
-  email: String
-  fname: String
+type Link {
+  description: String
+  id: ID!
+  postedBy: User
+  url: String
 }
 
-type ErrorResponse {
-  data: [UserErrors]
-  errorCode: Int
-  errors: [Errors]
-  message: String
-  name: String
-  success: Boolean
-}
-
-"""types Start--------------------------------"""
-type Errors {
-  message: String!
-  path: String!
-}
-
-"""Mutations Start"""
 type Mutation {
-  createTask(input: TaskInput): Task
-  createUser(input: UserInput): Response
-  deleteUser(_id: String): User
-  updateUser(_id: String!, input: UserInput): Response
+  post(description: String, url: String): Link
+  sigin(email: String!, password: String!): AuthPayload
+  signup(email: String!, name: String!, password: String!): AuthPayload
 }
 
-"""Queries Start"""
 type Query {
-  getUsers: [User]
-  greet(name: String!): String
-  greet2: Int
-  hello: String
-  tasks: [Task]
+  feed: [Link!]!
+  info: String!
 }
 
-type Response {
-  response: ErrorResponse
-}
-
-type Task {
-  _id: ID
-  description: String!
-  number: Int
-  title: String!
-}
-
-"""Inputs--------------------------------------------------"""
-input TaskInput {
-  description: String!
-  number: Int
-  title: String!
+type Subscription {
+  newLink: Link
 }
 
 type User {
-  _id: ID
-  cpassword: String!
-  createdAt: String
   email: String!
-  fname: String!
-  lname: String!
-  password: String!
-}
-
-type UserErrors {
-  cpassword: String
-  email: String
-  fname: String
-  lname: String
-  password: String
-}
-
-input UserInput {
-  cpassword: String!
-  email: String!
-  fname: String!
-  lname: String!
-  password: String!
-}
-
-input userInputID {
-  _id: String!
+  id: ID
+  links: [Link!]!
+  name: String!
 }
