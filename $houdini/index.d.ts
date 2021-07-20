@@ -1,2 +1,2 @@
-export * from "./artifacts\\info";
+export * from "./artifacts\\hello";
 export * from "./runtime";

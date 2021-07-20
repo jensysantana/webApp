@@ -34,18 +34,18 @@
 	// );
 	// import { authApi } from '../../services/api-auth';
 
-	// const { data } = query(graphql`
-	// 	query hello {
-	// 		hello
-	// 	}
-	// `);
+	const { data } = query(graphql`
+		query hello {
+			hello
+		}
+	`);
 
-	// data.subscribe((dakDD) => {
-	// 	console.log('---------dakDD---------');
-	// 	console.log(dakDD);
-	// 	console.log('---------dakDD---------');
-	// });
 	async function loadInitLang(lang) {
+		data.subscribe((dakDD) => {
+			console.log('---------dakDD---------');
+			console.log(dakDD);
+			console.log('---------dakDD---------');
+		});
 		// load the items
 		// await langsArr.setLangs({ uaidLang: lang });
 		// const subRest = subscription(

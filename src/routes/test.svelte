@@ -31,20 +31,20 @@
 	// );
 </script> -->
 <script>
-	import { query, graphql, subscription } from '$houdini';
+	// import { query, graphql, subscription } from '$houdini';
 
 	// // load the items
-	const { data } = query(graphql`
-		query info {
-			info
-		}
-	`);
+	// const { data } = query(graphql`
+	// 	query info {
+	// 		info
+	// 	}
+	// `);
 
-	data.subscribe((dak) => {
-		console.log('---------dak---------');
-		console.log(dak);
-		console.log('---------dak---------');
-	});
+	// data.subscribe((dak) => {
+	// 	console.log('---------dak---------');
+	// 	console.log(dak);
+	// 	console.log('---------dak---------');
+	// });
 
 	// const subRest = subscription(
 	// 	graphql`
