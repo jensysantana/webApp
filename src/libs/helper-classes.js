@@ -79,10 +79,17 @@ export class DataFormater { //change to
         }
     }
 
-    static getSelectedDocObj(obj, myKeys) {
+    static getSelectedDocObj(obj, myKeys, replacer) {
         let newObj = {};
+
+        if (replacer) {
+            newObj = obj;
+        }
+
         for (const it of myKeys) {
+
             for (const key in obj) {
+
                 if (Object.hasOwnProperty.call(obj, key)) {
                     const element = obj[key];
                     if (key === it.keyx) {
@@ -98,20 +105,31 @@ export class DataFormater { //change to
                             for (const iter of it.select) {
 
                                 if (Object.hasOwnProperty.call(element, iter)) {
-                                    Object.assign(newObj, {
-                                        [iter]: element[iter]
-                                    })
+                                    if (replacer) {
+                                        Object.assign(newObj, {
+                                            [iter]: element[iter]
+                                        })
+                                    } else {
+                                        newObj[iter] = element[iter];
+                                    }
                                 }
                                 // console.log('---------Object.hasOwnProperty.call(element, iter)---------');
                                 // console.log(Object.hasOwnProperty.call(element, iter));
                                 // console.log('---------Object.hasOwnProperty.call(element, iter)---------');
                             }
                         } else {
-                            Object.assign(newObj, { [key]: element })
+
+                            if (replacer) {
+                                Object.assign(newObj, { [key]: element });
+                            } else {
+                                newObj[key] = element;
+                            }
                         }
                     }
                 }
+
             }
+
         }
         return newObj;
     }
@@ -203,16 +221,16 @@ export class AppRegExp {
 }
 export class CookiesHelper {
 
-    // static getCookie(name) {
-    //     var nameEQ = name + "=";
-    //     var ca = document.cookie.split(';');
-    //     for (var i = 0; i < ca.length; i++) {
-    //         var c = ca[i];
-    //         while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-    //         if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    //     }
-    //     return null;
-    // }
+    getCookie(name, cookie) {
+        var nameEQ = name + "=";
+        var ca = cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
     // static setCookie(name, value, days) {
     //     var expires = "";
     //     if (days) {

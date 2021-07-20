@@ -1,8 +1,8 @@
-import { AppRegExp } from "../../libs/helper-classes";
 import * as yup from "yup";
+import { query, graphql } from '$houdini';
+import { AppRegExp } from "../../libs/helper-classes";
 // import { GlobalHelper } from "../../helpers/global-helper/global-helper";
 import { setLangErrorMessage } from "../../libs/setLangErrorMessage";
-import { query, graphql } from '$houdini';
 
 
 // import { authApi } from "../../services/api-auth";
@@ -119,20 +119,17 @@ export function emailValidation({ server, typeReq, message, }) {
                 console.log(email);
                 console.log('---------email---------');
 
-                // load the items
+                // // load the items
                 const { data } = query(graphql`
-                    query hello {
-                        hello
-                    }
+                query info {
+                    info
+                }
                 `);
-                console.log('---------data---------');
-                console.log(data);
                 data.subscribe((dak) => {
                     console.log('---------dak---------');
                     console.log(dak);
                     console.log('---------dak---------');
                 });
-                console.log('---------data---------');
 
                 // langAppPage.subscribe(value => {
                 //     checkYEmail = value.allAppLang.authFormsPageText.checkYEmail;

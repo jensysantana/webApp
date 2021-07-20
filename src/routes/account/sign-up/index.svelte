@@ -1,4 +1,5 @@
 <script>
+	// import { query, graphql } from '$houdini';
 	import FormComponent from '../../../components/form/FormComponent.svelte';
 	import { langAppPageContent, langsArr } from '../../../stores/langs/langStore';
 	import { setLangErrorMessage } from '../../../libs/setLangErrorMessage';
@@ -8,6 +9,11 @@
 	// if ($userAuthStore) {
 	//     // navigate("/");
 	// }
+	// import { authApi } from '../../services/api-auth';
+	// document
+	// 	.getElementById('mainBody')
+	// 	.classList.remove(['login-page', 'register-page', 'lockscreen']);
+	// document.getElementById('mainBody').classList.add('register-page');
 
 	import {
 		DataFormater
@@ -21,79 +27,84 @@
 		passwordValidation,
 		cPasswordValidation
 	} from '../../../validations/fields/fields';
-
 	import Alert from '../../../components/alerts/Alert.svelte';
-	// import { authApi } from '../../services/api-auth';
 
-	// document
-	// 	.getElementById('mainBody')
-	// 	.classList.remove(['login-page', 'register-page', 'lockscreen']);
-	// document.getElementById('mainBody').classList.add('register-page');
+	import { getStores } from '$app/stores';
+	import { CookiesHelper } from '../../../libs/helper-classes';
+	getStores().session.subscribe((store) => {
+		const cookieshelper = new CookiesHelper();
+		langsArr.setFieldsLang({
+			fields: [
+				{
+					keyx: 'globalLang',
+					select: [
+						'gEmail',
+						'gPassword',
+						'gCPassword',
+						'gPhone',
+						'gPhoneCode',
+						'gName',
+						'gLname',
+						'gNewPassword'
+					]
+				},
 
-	langsArr.setFieldsLang([
-		{
-			keyx: 'globalLang',
-			select: [
-				'gEmail',
-				'gPassword',
-				'gCPassword',
-				'gPhone',
-				'gPhoneCode',
-				'gName',
-				'gLname',
-				'gNewPassword'
-			]
-		},
-
-		{
-			keyx: 'msgInfo',
-			select: ['sorryNotCompReq']
-		},
-		{
-			keyx: 'sorryMessages'
-		},
-		{
-			keyx: 'buttonNames',
-			select: [
-				'logIn',
-				'btnNext',
-				'bthRegNAcc',
-				'bthIForgPass',
-				'bthSingInFace',
-				'regist',
-				'bthSingInGoog'
-			]
-		},
-		{
-			keyx: 'messages'
-		},
-		{
-			keyx: 'assistance'
-		},
-		{
-			keyx: 'authFormsValidations',
-			select: ['emailNotExists']
-		},
-		{
-			keyx: 'authFormsPageText',
-			select: [
-				'regTitle1of2',
-				'regTitle2of2',
-				'h2AccVerify',
-				'logH2Acc',
-				'logSubTitle',
-				'logRemMe',
-				'h2AccAssist',
-				'regSubTitle',
-				'regHaveAnAcc',
-				'h2AccReg',
-				'checkYEmail'
-			]
-		}
-	]);
+				{
+					keyx: 'msgInfo',
+					select: ['sorryNotCompReq']
+				},
+				{
+					keyx: 'sorryMessages'
+				},
+				{
+					keyx: 'buttonNames',
+					select: [
+						'logIn',
+						'btnNext',
+						'bthRegNAcc',
+						'bthIForgPass',
+						'bthSingInFace',
+						'regist',
+						'bthSingInGoog'
+					]
+				},
+				{
+					keyx: 'messages'
+				},
+				{
+					keyx: 'assistance'
+				},
+				{
+					keyx: 'authFormsValidations',
+					select: ['emailNotExists']
+				},
+				{
+					keyx: 'authFormsPageText',
+					select: [
+						'regTitle1of2',
+						'regTitle2of2',
+						'h2AccVerify',
+						'logH2Acc',
+						'logSubTitle',
+						'logRemMe',
+						'h2AccAssist',
+						'regSubTitle',
+						'regHaveAnAcc',
+						'h2AccReg',
+						'checkYEmail'
+					]
+				}
+			],
+			uaidLang: cookieshelper.getCookie('ULANG', store),
+			replacer: true
+		});
+	});
 
 	let globalLang;
 	$: {
+		// console.log('---------$langAppPageContent---------');
+		// console.log($langAppPageContent);
+		// console.log('---------$langAppPageContent---------');
 		globalLang = {
 			...$langAppPageContent
 		};
@@ -118,7 +129,7 @@
 		email: emailValidation({
 			server: true,
 			typeReq: 'singUp',
-			message: globalLang?.emailNotExists
+			message: globalLang?.emailNotExists || ''
 		}),
 		password: passwordValidation(),
 		cpassword: cPasswordValidation()
@@ -129,9 +140,9 @@
 	let ctrlAlertShow = {
 		show: false,
 		// strongText: "Account registration assistance",
-		strongText: globalLang?.h2AccReg,
+		strongText: globalLang?.h2AccReg || '',
 		// text: `Sorry we cannot complete your request.`,
-		text: globalLang?.sorryNotCompReq,
+		text: globalLang?.sorryNotCompReq || '',
 		color: 'alert-info',
 		closer: false
 	};
@@ -141,20 +152,32 @@
 		ctrlAlertShow.show = !ctrlAlertShow.show;
 		ctrlAlertShow = ctrlAlertShow;
 	}
+	// const { data } = query(graphql`
+	// 	query info {
+	// 		info
+	// 	}
+	// `);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const { errFields, isValidForm } = e.detail;
 		submitted = true;
 		// signUpStore.signUp(fields);
-
+		// load the items
+		// console.log(data);
+		// data.subscribe((dak) => {
+		// 	console.log('---------dak-.svelte--------');
+		// 	console.log(dak);
+		// 	console.log('---------dak-.svelte--------');
+		// });
 		//close the alert if is open
-		ctrlAlertShow = {
-			...ctrlAlertShow,
-			show: false
-		};
+		// ctrlAlertShow = {
+		// 	...ctrlAlertShow,
+		// 	show: false
+		// };
 
 		if (isValidForm) {
+			/*
 			try {
 				//send request to api
 				const respDb = await authApi.signUp(frontFields);
@@ -266,6 +289,8 @@
 					return true;
 				}
 			}
+
+			*/
 		}
 		errorFields = errFields;
 	};
@@ -299,14 +324,14 @@
 				// UrlOperations.redirectURL('/');
 			}}
 		>
-			<b>{globalLang?.regTitle1of2}</b>{globalLang?.regTitle2of2}
+			<b>{globalLang?.regTitle1of2 || ''}</b>{globalLang?.regTitle2of2 || ''}
 		</a>
 	</div>
 	<!-- {$signUpStore} -->
 	<div class="card">
 		<div class="card-body register-card-body">
 			<!-- <p class="login-box-msg">Register a new membership</p> -->
-			<p class="login-box-msg">{globalLang?.regSubTitle}</p>
+			<p class="login-box-msg">{globalLang?.regSubTitle || ''}</p>
 			<!-- on:submit={handleSubmit} -->
 			<FormComponent
 				initialFields={frontFields}
@@ -319,7 +344,7 @@
 					<input
 						type="text"
 						class="form-control"
-						placeholder={globalLang?.gName}
+						placeholder={globalLang?.gName || ''}
 						bind:value={frontFields.fname}
 						on:change={handleChange}
 						name="fname"
@@ -335,7 +360,7 @@
 					<input
 						type="text"
 						class="form-control"
-						placeholder={globalLang?.gLname}
+						placeholder={globalLang?.gLname || ''}
 						bind:value={frontFields.lname}
 						on:change={handleChange}
 						name="lname"
@@ -351,7 +376,7 @@
 					<input
 						type="email"
 						class="form-control"
-						placeholder={globalLang?.gEmail}
+						placeholder={globalLang?.gEmail || ''}
 						bind:value={frontFields.email}
 						on:change={handleChange}
 						name="email"
@@ -367,7 +392,7 @@
 					<input
 						type="password"
 						class="form-control"
-						placeholder={globalLang?.gPassword}
+						placeholder={globalLang?.gPassword || ''}
 						bind:value={frontFields.password}
 						on:change={handleChange}
 						name="password"
@@ -384,7 +409,7 @@
 					<input
 						type="password"
 						class="form-control"
-						placeholder={globalLang?.gCPassword}
+						placeholder={globalLang?.gCPassword || ''}
 						bind:value={frontFields.cpassword}
 						on:change={handleChange}
 						name="cpassword"
@@ -427,7 +452,9 @@
 					</div>
 					<!-- /.col -->
 					<div class="col-4">
-						<button class="btn btn-primary btn-block" type="submit">{globalLang?.regist}</button>
+						<button class="btn btn-primary btn-block" type="submit"
+							>{globalLang?.regist || 'Next'}</button
+						>
 					</div>
 					<!-- /.col -->
 				</div>
@@ -463,7 +490,7 @@
 					console.log(555);
 					// UrlOperations.redirectURL();
 					AllRoutes.getPageRoute('signin');
-				}}>{globalLang?.regHaveAnAcc}</a
+				}}>{globalLang?.regHaveAnAcc || ''}</a
 			>
 			<!--I already have a membership</a -->
 		</div>

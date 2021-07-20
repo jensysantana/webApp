@@ -34,3 +34,10 @@ export function getSession({ locals }) {
         user:locals.user
     };
 }
+
+server with cors
+https://www.apollographql.com/docs/graphql-subscriptions/setup/
+
+
+check this server nodejs
+https://github.com/weshuiz/sapper-passport/blob/main/src/server.js

@@ -12,6 +12,12 @@ const AllRoutes = {
             route: '/account/sign-in',
             nick: 'signin',
         },
+        {
+            _id: '2',
+            page: 'Sign Out',
+            route: '/account/sign-out',
+            nick: 'signout',
+        },
         // {
         //     _id: '1',
         //     page: 'Home',
@@ -24,12 +30,6 @@ const AllRoutes = {
         //     page: 'Account validate',
         //     route: '/account/account-validate',
         //     nick: 'accvalidate',
-        // },
-        // {
-        //     _id: '5',
-        //     page: 'Sign Out',
-        //     route: '/account/sign-out',
-        //     nick: 'signout',
         // },
         // {
         //     _id: '6',

@@ -33,35 +33,35 @@
 <script>
 	import { query, graphql, subscription } from '$houdini';
 
-	// load the items
-	// const { data } = query(graphql`
-	// 	query info {
-	// 		info
-	// 	}
-	// `);
+	// // load the items
+	const { data } = query(graphql`
+		query info {
+			info
+		}
+	`);
 
-	// data.subscribe((dak) => {
-	// 	console.log('---------dak---------');
-	// 	console.log(dak);
-	// 	console.log('---------dak---------');
-	// });
-
-	const subRest = subscription(
-		graphql`
-			subscription newLink {
-				newLink {
-					id
-					url
-					description
-				}
-			}
-		`
-	);
-
-	console.log('subRest: ', subRest);
-	subRest.data.subscribe(function (my) {
-		console.log('my: ', my);
+	data.subscribe((dak) => {
+		console.log('---------dak---------');
+		console.log(dak);
+		console.log('---------dak---------');
 	});
+
+	// const subRest = subscription(
+	// 	graphql`
+	// 		subscription newLink {
+	// 			newLink {
+	// 				id
+	// 				url
+	// 				description
+	// 			}
+	// 		}
+	// 	`
+	// );
+
+	// console.log('subRest: ', subRest);
+	// subRest.data.subscribe(function (my) {
+	// 	console.log('my: ', my);
+	// });
 </script>
 
 <!-- graphql`
@@ -217,7 +217,13 @@
 	// });
 </script> -->
 
-<h2>Test component</h2>
+<h2>
+	Test component Test component Test component Test component Test component Test component Test
+	component Test component Test component Test component Test component Test component Test
+	component Test component Test component Test component Test component Test component Test
+	component Test component Test component Test component Test component Test component Test
+	component Test component Test component Test component
+</h2>
 
 <!-- {#await $todos}
 	<p>loadding todos</p>

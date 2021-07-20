@@ -1,7 +1,9 @@
 // import axios from 'axios';
 import { writable, derived } from "svelte/store";
 
-import { DataFormater, LocalStorageOp } from "../../libs/helper-classes";
+import {
+    DataFormater,
+} from "../../libs/helper-classes";
 import { langFileMessages } from "../../libs/setLangs";
 
 // const gLang = LocalStorageOp.getStorage('ULANG');
@@ -33,37 +35,17 @@ function laguageStore() {
         set,
         update,
 
-    } = writable({ flags: langs, uaidLang: gLang || langs[0].code, allAppLang: [] });
+    } = writable({ flags: langs, uaidLang: langs[0].code, replacer: false, allAppLang: [] });
 
     return {
         subscribe,
-        setLangs: async (lang) => {
-            // set(langsArr);
-            // console.log('---------xxxxx---------');
-            // console.log(langFileMessages(lang));
-            // console.log('---------xxxxx---------');
-            /*
-            axios
-                .get('file.json')
-                .then(({ data }, ...rest) => {
-
-                    console.log('---------data---------');
-                    console.log(data);
-                    console.log(rest);
-                    console.log('---------data---------');
-
-                })
-                .catch((err) => {
-                    console.log('---------err---------');
-                    console.log(err.response);
-                    console.log('---------err---------');
-                })
-                */
-            // set(langs);
-        },
-        setFieldsLang: (fields) => update((data) => {
-            // console.log('data: ', data);
-            // console.log('fields: ', fields);
+        setLangs: ({ uaidLang }) => update((data) => {
+            data.uaidLang = uaidLang;
+            return data;
+        }),
+        setFieldsLang: ({ fields, uaidLang, replacer }) => update((data) => {
+            data.uaidLang = uaidLang;
+            data.replacer = replacer;
             data.allAppLang = fields;
             return data;
         })
@@ -80,11 +62,11 @@ export const flagLangs = derived(langsArr, $langsArr => {
 });
 
 export const langAppPageContent = derived(langsArr, ($langsArr) => {
-    // document: 'authFormsPageText'
+    // document: 'authFormsPageText' 
     const objLang = langFileMessages({ selectedLang: $langsArr.uaidLang });
     let newObj = {};
-
-    newObj = DataFormater.getSelectedDocObj(objLang, $langsArr.allAppLang);
+    const { allAppLang, replacer } = $langsArr;
+    newObj = DataFormater.getSelectedDocObj(objLang, allAppLang, replacer);
     // console.log('newObj: ', newObj);
 
     return { ...newObj };
@@ -94,53 +76,6 @@ export const langAppPage = derived(langsArr, ($langsArr) => {
     // document: 'authFormsPageText'
     const objLang = langFileMessages({ selectedLang: $langsArr.uaidLang });
     let newObj = {};
-    // [
-    //     {
-    //         keyx: 'gName'
-    //     },
-    //     {
-    //         keyx: 'gLname'
-    //     },
-    //     {
-    //         keyx: 'gEmail'
-    //     },
-    //     {
-    //         keyx: 'gPassword'
-    //     },
-    //     {
-    //         keyx: 'gNewPassword'
-    //     },
-    //     {
-    //         keyx: 'gCPassword'
-    //     },
-    //     {
-    //         keyx: 'gPhone'
-    //     },
-    //     {
-    //         keyx: 'gPhoneCode'
-    //     },
-    //     {
-    //         keyx: 'msgInfo'
-    //     },
-    //     {
-    //         keyx: 'sorryMessages'
-    //     },
-    //     {
-    //         keyx: 'buttonNames'
-    //     },
-    //     {
-    //         keyx: 'messages'
-    //     },
-    //     {
-    //         keyx: 'assistance'
-    //     },
-    //     {
-    //         keyx: 'authFormsValidations'
-    //     },
-    //     {
-    //         keyx: 'authFormsPageText'
-    //     }
-    // ]
     newObj = DataFormater.getSelectedDocObj(objLang, $langsArr.allAppLang);
 
     return { allAppLang: { ...newObj } };

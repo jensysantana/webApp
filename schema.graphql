@@ -1,33 +1,116 @@
-type AuthPayload {
-  token: String
-  user: User
+enum AllowedColor {
+  BLUE
+  GREEN
+  RED
 }
 
-type Link {
-  description: String
-  id: ID!
-  postedBy: User
-  url: String
+type BasicResponse {
+  message: String
+  name: String
+  statusCode: Int
+  success: Boolean
+}
+
+type Emailx {
+  email: String
+  fname: String
+}
+
+type ErrorResponse {
+  data: [UserErrors]
+  errors: [Errors]
+  message: String
+  name: String
+  statusCode: Int
+  success: Boolean
+}
+
+type Errors {
+  message: String!
+  path: String!
 }
 
 type Mutation {
-  post(description: String, url: String): Link
-  sigin(email: String!, password: String!): AuthPayload
-  signup(email: String!, name: String!, password: String!): AuthPayload
+  createTask(input: TaskInput): Task
+  createUser(input: UserInput): Response
+  deleteUser(_id: String): User
+  updateUser(_id: String!, input: UserInput): Response
+}
+
+type Name {
+  name: String
 }
 
 type Query {
-  feed: [Link!]!
-  info: String!
+  getULang: SimpleResponse!
+  getUsers: [User]
+  getpcsrft: Response!
+  greet(name: String!): String
+  greet2: Int
+  hello: String
+  info: String
+  tasks: [Task]
+}
+
+type Response {
+  response: ErrorResponse
+}
+
+type ResponseCsrfT {
+  response: ErrorResponse
+}
+
+type SimpleResponse {
+  response: BasicResponse
 }
 
 type Subscription {
-  newLink: Link
+  newUser: User!
+}
+
+type Task {
+  _id: ID
+  description: String!
+  number: Int
+  title: String!
+}
+
+input TaskInput {
+  description: String!
+  number: Int
+  title: String!
 }
 
 type User {
+  _id: ID
+  cpassword: String!
+  createdAt: String
   email: String!
-  id: ID
-  links: [Link!]!
-  name: String!
+  fname: String!
+  lname: String!
+  password: String!
+}
+
+type UserC {
+  id: ID!
+}
+
+type UserErrors {
+  cpassword: String
+  email: String
+  fname: String
+  lname: String
+  password: String
+}
+
+input UserInput {
+  cpassword: String!
+  email: String!
+  fname: String!
+  lname: String!
+  password: String!
+}
+
+input userInputID {
+  _id: String!
 }

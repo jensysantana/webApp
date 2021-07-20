@@ -4,5 +4,5 @@ export type info = {
 };
 
 export type info$result = {
-    readonly info: string
+    readonly info: string | null
 };
