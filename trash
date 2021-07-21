@@ -41,3 +41,7 @@ https://www.apollographql.com/docs/graphql-subscriptions/setup/
 
 check this server nodejs
 https://github.com/weshuiz/sapper-passport/blob/main/src/server.js
+
+
+// query and mutation with fetch api
+https://www.netlify.com/blog/2020/12/21/send-graphql-queries-with-the-fetch-api-without-using-apollo-urql-or-other-graphql-clients/

@@ -1,13 +1,6 @@
 <!-- <script context="module">
-	export async function load({ page, fetch, session, context }) {
-		// console.log('page loaddd: ', page);
-		console.log('session: ', session);
-
-		return {
-			props: {
-				article: 'cookie...........'
-			}
-		};
+	export function load() {
+		
 	}
 </script> -->
 <script>
@@ -20,81 +13,54 @@
 		page
 	} from '$app/stores';
 	import { onMount } from 'svelte';
-	import { query, graphql, subscription } from '$houdini';
+	import { query, graphql } from '$houdini';
 
-	// console.log(
-	// 	'---------getStoreSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS---------'
-	// );
-	// console.log(getStores());
-	// getStores().session.subscribe((tokennna) => {
-	// 	console.log('tokennna: ', tokennna);
-	// });
-	// console.log(
-	// 	'---------getStoreSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS---------'
-	// );
-	// import { authApi } from '../../services/api-auth';
-
-	const { data } = query(graphql`
-		query hello {
-			hello
-		}
-	`);
+	const fetchQuery = (operation, variables) => {
+		const datax = fetch('http://localhost:4300/graphql', {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json',
+				Accept: 'application/json'
+			},
+			body: JSON.stringify({
+				// doc_id: operation.id, // NOTE: pass md5 hash to the server
+				// query: operation.text, // this is now obsolete because text is null
+				query: `
+				query getULang($lang: String!) {
+					getULang(lang: $lang) {
+						response {
+							success
+							message
+							name
+						}
+					}
+				}
+				`,
+				// variables
+				variables: {
+					lang: 'es-DO'
+				}
+			})
+		}).then((response) => {
+			return response.json();
+		});
+		return datax;
+	};
 
 	async function loadInitLang(lang) {
-		data.subscribe((dakDD) => {
-			console.log('---------dakDD---------');
-			console.log(dakDD);
-			console.log('---------dakDD---------');
-		});
-		// load the items
-		// await langsArr.setLangs({ uaidLang: lang });
-		// const subRest = subscription(
-		// 	graphql`
-		// 		subscription newLink {
-		// 			newLink {
-		// 				id
-		// 				url
-		// 				description
-		// 			}
-		// 		}
-		// 	`
-		// );
-		// console.log('subRest: ', subRest);
-		// subRest.data.subscribe(function (my) {
-		// 	console.log('my: ', my);
-		// });
-		// const langResp = await authApi.getLang({
-		// 	lang
-		// });
-		// const {
-		// 	status,
-		// 	data: {
-		// 		response: { message }
-		// 	}
-		// } = langResp;
-		// if (status === 200) {
-		// 	LocalStorageOp.setStorage([{ key: 'ULANG', value: message }]);
-		// }
+		console.log('---------lang---------');
+		console.log(lang);
+		console.log('---------lang---------');
+
+		fetchQuery(null, null)
+			.then((dbData) => {
+				console.log('dbData1111111111: ', dbData);
+				console.log('dbData ---------------*******: ', dbData.data);
+			})
+			.catch((dbError) => {
+				console.log('dbError222222222222: ', dbError);
+			});
 	}
-
-	/*
-		let path = '';
-		page.subscribe((page) => {
-			path = page.path;
-			console.log('path *********************************: ');
-
-			console.log(path);
-			console.log('path *********************************: ');
-		});
-	*/
-
-	onMount(async () => {
-		// console.log('hasLocal11111: ', window?.location);
-		// let hasLocal = LocalStorageOp.getStorage('ULANG');
-		// if (!hasLocal) {
-		// 	// await loadInitLang("en-US");
-		// }
-	});
 </script>
 
 <li class="nav-item dropdown">

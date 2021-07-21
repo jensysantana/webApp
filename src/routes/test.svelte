@@ -1,4 +1,53 @@
 <!-- <script>
+	import { getClient, query } from 'svelte-apollo';
+	import { gql } from 'apollo-boost';
+
+	const client = getClient();
+
+	const GETTODOS = gql`
+		{
+			tasks {
+				_id
+				title
+				description
+			}
+		}
+	`;
+	const todos = query(client, { query: GETTODOS });
+
+	// onMount(async () => {
+	// 	// const resp = await todos();
+	// 	// console.log('resp: ', resp);
+	// });
+</script> -->
+<script context="module">
+	export function getULangVariables(page) {
+		return {
+			lang: 'es-DO'
+		};
+	}
+</script>
+
+<script>
+	import { query, graphql, subscription } from '$houdini';
+	const { data } = query(graphql`
+		query getULang($lang: String!) {
+			getULang(lang: $lang) {
+				response {
+					success
+					message
+					name
+				}
+			}
+		}
+	`);
+
+	data.subscribe((info) => {
+		console.log('info: ', info);
+	});
+</script>
+
+<!-- <script>
 	// import {
 	// 	fragment,
 	// 	mutation,
@@ -30,39 +79,39 @@
 	// 	`
 	// );
 </script> -->
-<script>
-	// import { query, graphql, subscription } from '$houdini';
+<!-- <script>
+	import { query, graphql, subscription } from '$houdini';
 
-	// // load the items
-	// const { data } = query(graphql`
-	// 	query info {
-	// 		info
-	// 	}
-	// `);
+	// load the items
+	const { data } = query(graphql`
+		query info {
+			info
+		}
+	`);
 
-	// data.subscribe((dak) => {
-	// 	console.log('---------dak---------');
-	// 	console.log(dak);
-	// 	console.log('---------dak---------');
-	// });
+	data.subscribe((dak) => {
+		console.log('---------dak---------');
+		console.log(dak);
+		console.log('---------dak---------');
+	});
 
-	// const subRest = subscription(
-	// 	graphql`
-	// 		subscription newLink {
-	// 			newLink {
-	// 				id
-	// 				url
-	// 				description
-	// 			}
-	// 		}
-	// 	`
-	// );
+	const subRest = subscription(
+		graphql`
+			subscription newLink {
+				newLink {
+					id
+					url
+					description
+				}
+			}
+		`
+	);
 
-	// console.log('subRest: ', subRest);
-	// subRest.data.subscribe(function (my) {
-	// 	console.log('my: ', my);
-	// });
-</script>
+	console.log('subRest: ', subRest);
+	subRest.data.subscribe(function (my) {
+		console.log('my: ', my);
+	});
+</script> -->
 
 <!-- graphql`
 	subscription ItemUpdate($id: ID!) {
@@ -194,35 +243,12 @@
 	}
 </script> -->
 
-<!-- <script>
-	import { getClient, query } from 'svelte-apollo';
-	import { gql } from 'apollo-boost';
-
-	const client = getClient();
-
-	const GETTODOS = gql`
-		{
-			tasks {
-				_id
-				title
-				description
-			}
-		}
-	`;
-	const todos = query(client, { query: GETTODOS });
-
-	// onMount(async () => {
-	// 	// const resp = await todos();
-	// 	// console.log('resp: ', resp);
-	// });
-</script> -->
-
 <h2>
-	Test component Test component Test component Test component Test component Test component Test
-	component Test component Test component Test component Test component Test component Test
-	component Test component Test component Test component Test component Test component Test
-	component Test component Test component Test component Test component Test component Test
-	component Test component Test component Test component
+	Test compo nent Test com ponent Tes t component Test com ponent Test component Test component Test
+	comp onent Test compon ent Test compo nent Test com ponent Test c ompo nent Test compone nt Test
+	component Test component Test component Test component Test component Test component Test co mpone
+	nt Test co mponent Test compon ent Test component Test component Test component Test compon ent
+	Test component Test com ponent Test component
 </h2>
 
 <!-- {#await $todos}

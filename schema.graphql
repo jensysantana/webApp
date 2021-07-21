@@ -4,11 +4,15 @@ enum AllowedColor {
   RED
 }
 
-type BasicResponse {
+type BasicError {
   message: String
   name: String
   statusCode: Int
   success: Boolean
+}
+
+type BasicErrorResponse {
+  response: BasicError
 }
 
 type Emailx {
@@ -42,7 +46,7 @@ type Name {
 }
 
 type Query {
-  getULang: SimpleResponse!
+  getULang(lang: String!): BasicErrorResponse
   getUsers: [User]
   getpcsrft: Response!
   greet(name: String!): String
@@ -58,10 +62,6 @@ type Response {
 
 type ResponseCsrfT {
   response: ErrorResponse
-}
-
-type SimpleResponse {
-  response: BasicResponse
 }
 
 type Subscription {

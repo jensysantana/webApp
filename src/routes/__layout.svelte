@@ -1,8 +1,9 @@
-<!-- <script context="module">
+<script context="module">
 	import env from '../environment';
 	import { setEnvironment } from '$houdini';
 	setEnvironment(env);
-</script> -->
+</script>
+
 <script>
 	import { flagLangs, langsArr } from '../stores/langs/langStore';
 	// import NavBar from '../components/navbar/NavBar.svelte';
@@ -16,7 +17,7 @@
 	import { getStores } from '$app/stores';
 	getStores().session.subscribe((store) => {
 		const cookieshelper = new CookiesHelper();
-		console.log('storeXXXXXXXXXX: ', cookieshelper.getCookie('ULANG', store));
+		// console.log('storeXXXXXXXXXX: ', cookieshelper.getCookie('ULANG', store));
 	});
 
 	// import { ApolloClient } from 'apollo-boost';

@@ -7,7 +7,7 @@
     "preview": "svelte-kit preview",
     "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
     "format": "prettier --write --plugin-search-dir=. .",
-    "generate": "houdini generate"
+    "generate": "houdini generate -p"
   },
   "devDependencies": {
     "@sveltejs/kit": "next",
@@ -18,11 +18,11 @@
     "houdini-preprocess": "^0.9.6",
     "prettier": "~2.2.1",
     "prettier-plugin-svelte": "^2.2.0",
-    "svelte": "^3.34.0"
+    "svelte": "^3.34.0",
+    "typescript": "^4.3.5"
   },
   "type": "module",
   "dependencies": {
-    "@apollo/client": "^3.3.21",
     "@formatjs/intl": "^1.13.2",
     "@sveltejs/adapter-node": "next",
     "axios": "^0.21.1",

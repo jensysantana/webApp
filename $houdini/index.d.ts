@@ -1,2 +1,2 @@
-export * from "./artifacts\\hello";
+export * from "./artifacts\\getULang";
 export * from "./runtime";
